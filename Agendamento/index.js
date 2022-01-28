@@ -14,7 +14,7 @@ const app = express();
 app.use(express.static('public'));
 
 //configurano o app pra utilizar o express em formulários e o json
-app.use(express.urlencoded({extended: false} ));
+app.use(express.urlencoded({extended: true} ));
 app.use(express.json());
 
 //configurando o framework da view engine
