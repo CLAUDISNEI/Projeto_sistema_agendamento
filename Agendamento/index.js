@@ -29,7 +29,8 @@ mongoose.connect("mongodb://localhost:27017/agendamento",{useNewUrlParser: true,
 
 //rota principal 
 app.get('/',(req, res)=>{
-    res.send("Olá!");
+    //res.send("Olá!");
+    res.render('index');
 });
 
 //rota para abrir a página de cadastro
