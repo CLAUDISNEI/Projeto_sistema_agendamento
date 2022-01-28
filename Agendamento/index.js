@@ -4,6 +4,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 //importando o mongoose para utilizar o banco de dados mongodb
 const mongoose = require('mongoose');
+//importando o service de consulta medica
+const appointmentService = require('./services/AppointmentService');
+
 
 
 //criando a instancia do express em um app
@@ -21,7 +24,7 @@ app.use(express.json());
 app.set('view engine','ejs');
 
 
-//configurando a conexao padrao do mongodb
+//configurando a conexao padrao do mongodb e criando o banco de dados agendamento
 mongoose.connect("mongodb://localhost:27017/agendamento",{useNewUrlParser: true, useUnifiedTopology: true});
 
 //rota principal 
@@ -29,10 +32,34 @@ app.get('/',(req, res)=>{
     res.send("Olá!");
 });
 
-//rota de cadastro
+//rota para abrir a página de cadastro
 app.get('/cadastro',(req, res)=>{
     res.render('create');
 });
+
+//rota para pegar os dados do formulário e realizar o cadastro no 
+//banco de dados
+app.post('/create', async (req,res)=>{
+    
+    //fazendo um destruct e capturando as informações passadas via post
+    var {name, email, cpf, description, date, time} = req.body;
+    
+    
+    var status =   await appointmentService.Create(
+            name, 
+            email, 
+            cpf, 
+            description, 
+            date, 
+            time   
+        );
+    if(status){
+        //volta para página inicial
+        res.redirect('/');
+    }else{
+        res.send("Ocorreu uma falha!");
+    }
+})
 
 
 //iniciando o servidor
