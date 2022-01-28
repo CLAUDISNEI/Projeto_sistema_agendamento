@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 //importando o service de consulta medica
 const appointmentService = require('./services/AppointmentService');
+const AppointmentService = require('./services/AppointmentService');
 
 
 
@@ -60,6 +61,15 @@ app.post('/create', async (req,res)=>{
     }else{
         res.send("Ocorreu uma falha!");
     }
+})
+
+//rota para exibir todos os registros inclusive as consultas já finalizadas
+app.get('/getcalendar',async (req,res)=>{
+    
+    var consultas = await AppointmentService.GetAll(true);
+
+    res.json(consultas);
+
 })
 
 

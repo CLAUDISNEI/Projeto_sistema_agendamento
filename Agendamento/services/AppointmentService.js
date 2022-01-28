@@ -5,6 +5,7 @@ const AppoModel = mongoose.model("Appointment",appointment);
 
 class AppointmentService{
 
+    //método salvar um registro
     async Create(name, email, description, cpf, date, time){
         var newAppo = new AppoModel({
             name: name,
@@ -24,6 +25,21 @@ class AppointmentService{
             return false;
         }
     }
+
+    //listar todas as consultas recendo um booleano 
+    async GetAll(showFinished){
+
+        //mostrando todas as consultas
+        if(showFinished){
+            return await AppoModel.find();
+        }else{
+            //mostrando as consultas que ainda não foram finalizadas.
+            return await AppoModel.find({'finished': false});
+        }
+
+
+    }
+
 }
 
 module.exports = new AppointmentService();
