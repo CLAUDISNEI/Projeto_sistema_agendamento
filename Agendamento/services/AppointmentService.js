@@ -7,7 +7,7 @@ const AppoModel = mongoose.model("Appointment",appointment);
 class AppointmentService{
 
     //método salvar um registro
-    async Create(name, email, description, cpf, date, time){
+    async Create(name, email, cpf, description, date, time){
         var newAppo = new AppoModel({
             name: name,
             email: email,

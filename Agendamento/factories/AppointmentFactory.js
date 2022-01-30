@@ -5,7 +5,7 @@ class AppointmentFactory{
 
         //vamos juntar a hora e a data para isso vamos pegar partes da 
         //data e vamos juntálos
-        var day = simpleAppointment.date.getDate()+1;
+        var day = simpleAppointment.date.getDate();
         var month = simpleAppointment.date.getMonth();
         var year = simpleAppointment.date.getFullYear();
         
@@ -21,17 +21,15 @@ class AppointmentFactory{
         var startDate = new Date(year, month, day, hour, minutes, 0, 0);
 
         //alterando a hora para desconsider as 3 horas à mais da UTC
-        startDate.setHours(startDate.getHours() - 3 );
+        startDate.setHours(startDate.getHours() + 6  );
         
-        
-
         //criando um json com os novos campos para exibir no calendario
         var appo = {
 
             id: simpleAppointment. _id,
             title: simpleAppointment.name + " - "+ simpleAppointment.description,
             start: startDate,
-            end: startDate + 1
+            end: startDate
 
         }
 
