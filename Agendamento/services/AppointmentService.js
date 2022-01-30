@@ -1,5 +1,6 @@
 var appointment = require('../models/Appointment');
 var mongoose = require('mongoose');
+const AppointmentFactory = require('../factories/AppointmentFactory');
 
 const AppoModel = mongoose.model("Appointment",appointment);
 
@@ -34,7 +35,24 @@ class AppointmentService{
             return await AppoModel.find();
         }else{
             //mostrando as consultas que ainda não foram finalizadas.
-            return await AppoModel.find({'finished': false});
+            //a variavel apps irá receber todos os registros que ainda
+            //não foram finalizados.
+            var appos = await AppoModel.find({'finished': false});
+
+            //array que receberá os registros com o formato ideal para 
+            //mostrar no calendario.
+            var appointments = [];
+
+            //faremos um laço em cada registro
+            //e iremos adicionar 
+            appos.forEach(appointment => {
+                    
+                    if(appointment.date != undefined){
+                        appointments.push(AppointmentFactory.Build(appointment));
+                    }
+            })
+
+            return appointments;
         }
 
 

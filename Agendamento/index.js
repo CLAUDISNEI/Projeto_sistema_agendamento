@@ -66,9 +66,9 @@ app.post('/create', async (req,res)=>{
 //rota para exibir todos os registros inclusive as consultas já finalizadas
 app.get('/getcalendar',async (req,res)=>{
     
-    var consultas = await AppointmentService.GetAll(true);
+    var appointments = await AppointmentService.GetAll(true);
 
-    res.json(consultas);
+    res.json(appointments);
 
 })
 
