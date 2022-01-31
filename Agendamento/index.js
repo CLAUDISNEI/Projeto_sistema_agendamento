@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 //importando o mongoose para utilizar o banco de dados mongodb
 const mongoose = require('mongoose');
 //importando o service de consulta medica
-const appointmentService = require('./services/AppointmentService');
+//const appointmentService = require('./services/AppointmentService');
 const AppointmentService = require('./services/AppointmentService');
 
 
@@ -80,6 +80,14 @@ app.get('/event/:id', async(req, res)=>{
     */
    var appointment = await AppointmentService.GetById(req.params.id);
    res.render('event',{appo: appointment});
+});
+
+//rota para finalizar a consulta
+app.post('/finished', async(req, res)=>{
+    var id = req.body.id;
+    var result = await AppointmentService.appointmentFinished(id);
+
+    res.redirect('/');
 });
 
 

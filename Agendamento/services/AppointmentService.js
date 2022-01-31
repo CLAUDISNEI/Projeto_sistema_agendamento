@@ -57,6 +57,7 @@ class AppointmentService{
 
     }
 
+    //classe para localizar um registro através de um id passado por parâmetro
     async GetById(id){
         try {
             var event = await AppoModel.findOne({'_id': id});
@@ -65,6 +66,27 @@ class AppointmentService{
             console.log(err);
         }
        
+    }
+
+    //classe para alterar o campo booleando de consulta finalizada
+    async appointmentFinished(id){
+        var msg;
+        try {
+            var result = await AppoModel.findByIdAndUpdate(id,{finished: true});
+            if(result){
+                console.log("Consulta finalizada");
+                msg = "Constulta finalizada";
+                return {status: true, msg: msg};
+            }else{
+                console.log("Consulta não encontrada");
+                msg = "Consulta não localizada";
+                return {status: false, msg: msg};
+            }
+        } catch (err) {
+            console.log("Erro ao finalizar consulta: "+ error);
+            return {status: false, msg: err};
+        }
+
     }
 
 }
