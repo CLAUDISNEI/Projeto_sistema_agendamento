@@ -72,6 +72,16 @@ app.get('/getcalendar',async (req,res)=>{
 
 })
 
+//rota para carregar um registro em uma página paa edição.
+app.get('/event/:id', async(req, res)=>{
+    /*testando
+    console.log(await AppointmentService.GetById(req.params.id));
+    res.json({id: req.params.id});
+    */
+   var appointment = await AppointmentService.GetById(req.params.id);
+   res.render('event',{appo: appointment});
+});
+
 
 //iniciando o servidor
 app.listen(8080,()=>{
