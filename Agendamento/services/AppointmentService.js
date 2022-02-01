@@ -86,7 +86,6 @@ class AppointmentService{
             console.log("Erro ao finalizar consulta: "+ error);
             return {status: false, msg: err};
         }
-
     }
 
 }

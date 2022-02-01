@@ -90,6 +90,12 @@ app.post('/finished', async(req, res)=>{
     res.redirect('/');
 });
 
+//rota para exibir dos os registros 
+app.get('/list',async (req,res)=>{
+    var list = await AppointmentService.GetAll(true);
+    res.render('list',{list});
+})
+
 
 //iniciando o servidor
 app.listen(8080,()=>{
