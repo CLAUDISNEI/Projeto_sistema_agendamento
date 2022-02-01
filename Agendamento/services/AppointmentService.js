@@ -109,12 +109,30 @@ class AppointmentService{
     //metodo para enviar a notificação ao paciente
     async sendNotification(){
         var appos = await this.GetAll(false);
-        var time = Date.now('yyyy-mm-dd');
-        /*appos.forEach(appo =>{
-            if(appo.notified == false && appo. )
-        });*/
+        var time = Date.now();
+        
+        appos.forEach(appo =>{
+
+            //date recebe a data do banco de dados
+            var date = appo.start.getTime();
+
+            //corresponde ao tempo de antecedência para envio da notificação
+            var hour = 1000 * 60 * 60 * 1; 
+
+            //gap é diferença entre a data do sistema menos a data atual
+            var gap = date - Date.now();
+
+            if(gap <= hour){
+                console.log(appo.title);
+                console.log("Mand a not!");
+            }
+
+
+        });
+
+
         console.log(time);
-        console.log(appos);
+      //   console.log(appos);
     }
 }
 
