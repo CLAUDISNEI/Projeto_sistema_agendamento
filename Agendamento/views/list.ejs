@@ -13,5 +13,12 @@
     <h4>Descrição: <%= appo.description %></h4>
     <h4>CPF: <%= appo.cpf %></h4>
     <h4>Email: <%= appo.email %></h4>
+    <h4>Notificado: <% if(appo.notified) { %>
+                            Sim
+                   <% } else{ %>
+                            Não
+                    <% } %>
+    
+    </h4>
     <hr>
 <% }); %>

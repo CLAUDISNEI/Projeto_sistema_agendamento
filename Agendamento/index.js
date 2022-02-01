@@ -7,7 +7,8 @@ const mongoose = require('mongoose');
 //importando o service de consulta medica
 //const appointmentService = require('./services/AppointmentService');
 const AppointmentService = require('./services/AppointmentService');
-
+//importando o arquivo de configuração com variáveis padrão.
+const config = require('../Agendamento/config');
 
 
 //criando a instancia do express em um app
@@ -47,7 +48,7 @@ app.post('/create', async (req,res)=>{
     var {name, email, cpf, description, date, time} = req.body;
     
     
-    var status =   await appointmentService.Create(
+    var status =   await AppointmentService.Create(
             name, 
             email, 
             cpf, 
@@ -105,7 +106,15 @@ app.get('/searchresult',async(req, res)=>{
 });
 
 
+//setando um tempo para executar a consulta ao banco de dados
+setInterval( async () => {
+    console.log("Olá");
+    AppointmentService.sendNotification();
+}, config.taskTime);
+
+
 //iniciando o servidor
-app.listen(8080,()=>{
+app.listen(8080, ()=>{
     console.log("Servidor rodando");
+
 });

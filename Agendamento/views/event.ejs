@@ -6,6 +6,14 @@
 <hr>
 <h4>CPF: <%= appo.cpf %> </h4>
 <hr>
+<h4>Notificado: <% if(appo.notified) { %>
+    Sim
+<% } else{ %>
+    Não
+<% } %>
+
+</h4>
+<hr>
 <% if(!appo.finished){ %>
     <form  method="post" action="/finished">
         <input type="hidden" name="id" value="<%= appo._id %>">

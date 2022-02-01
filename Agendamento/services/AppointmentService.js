@@ -15,7 +15,8 @@ class AppointmentService{
             cpf: cpf,
             date: date,
             time: time,
-            finished: false
+            finished: false,
+            notified: false
         });
 
         try {
@@ -104,7 +105,17 @@ class AppointmentService{
             return {status: false, msg: err};
         }
     }
-
+    
+    //metodo para enviar a notificação ao paciente
+    async sendNotification(){
+        var appos = await this.GetAll(false);
+        var time = Date.now('yyyy-mm-dd');
+        /*appos.forEach(appo =>{
+            if(appo.notified == false && appo. )
+        });*/
+        console.log(time);
+        console.log(appos);
+    }
 }
 
 module.exports = new AppointmentService();

@@ -27,10 +27,10 @@ class AppointmentFactory{
         var appo = {
 
             id: simpleAppointment. _id,
-            title: simpleAppointment.name + " - "+ simpleAppointment.description,
+            title: simpleAppointment.name +" - "+ simpleAppointment.description,
             start: startDate,
-            end: startDate
-
+            end: startDate,
+            notified: simpleAppointment.notified
         }
 
         return appo;
