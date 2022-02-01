@@ -96,6 +96,14 @@ app.get('/list',async (req,res)=>{
     res.render('list',{list});
 })
 
+//rota para exibir a buscar por email ou cpf
+app.get('/searchresult',async(req, res)=>{
+    var query = req.query.search;
+    var list = await AppointmentService.Search(query);
+    //res.json(search);
+    res.render('list',{list});
+});
+
 
 //iniciando o servidor
 app.listen(8080,()=>{

@@ -27,7 +27,7 @@ class AppointmentService{
         }
     }
 
-    //listar todas as consultas recendo um booleano 
+    //método para listar todas as consultas recendo um booleano 
     async GetAll(showFinished){
 
         //mostrando todas as consultas
@@ -57,7 +57,7 @@ class AppointmentService{
 
     }
 
-    //classe para localizar um registro através de um id passado por parâmetro
+    //método para localizar um registro através de um id passado por parâmetro
     async GetById(id){
         try {
             var event = await AppoModel.findOne({'_id': id});
@@ -68,7 +68,7 @@ class AppointmentService{
        
     }
 
-    //classe para alterar o campo booleando de consulta finalizada
+    //método para alterar o campo booleando de consulta finalizada
     async appointmentFinished(id){
         var msg;
         try {
@@ -84,6 +84,23 @@ class AppointmentService{
             }
         } catch (err) {
             console.log("Erro ao finalizar consulta: "+ error);
+            return {status: false, msg: err};
+        }
+    }
+
+    //metodo que irá localizar um registro através do cpf ou o email do usuário
+    async Search(query) {
+        try {
+            var result = await AppoModel.find().or([
+                {email: query},
+                {cpf: query}
+            ]);
+            if(result.length>0){
+                return result;
+            }else{
+                return {status: false, msg: "Paciente não localizado" };
+            }
+        } catch (err) {
             return {status: false, msg: err};
         }
     }

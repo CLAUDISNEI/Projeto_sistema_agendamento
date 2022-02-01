@@ -3,7 +3,7 @@
 </h1>
 <hr>
 
-<form method="post" action="">
+<form method="" action="/searchresult">
     <input type="search" name="search" id="search" placeholder="Digite o email ou CPF do paciente">
     <button>Pesquisar</button>
 </form>
@@ -12,5 +12,6 @@
     <h3>Nome: <%= appo.name %></h4>
     <h4>Descrição: <%= appo.description %></h4>
     <h4>CPF: <%= appo.cpf %></h4>
+    <h4>Email: <%= appo.email %></h4>
     <hr>
 <% }); %>
