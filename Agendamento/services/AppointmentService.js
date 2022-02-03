@@ -4,6 +4,11 @@ const AppointmentFactory = require('../factories/AppointmentFactory');
 
 const AppoModel = mongoose.model("Appointment",appointment);
 
+//importando o nodeailer para envio de emails
+const mailer = require('nodemailer');
+//importando arquivo de configuração
+const config = require('../config/config');
+
 class AppointmentService{
 
     //método salvar um registro
@@ -109,9 +114,19 @@ class AppointmentService{
     //metodo para enviar a notificação ao paciente
     async sendNotification(){
         var appos = await this.GetAll(false);
-        var time = Date.now();
-        
-        appos.forEach(appo =>{
+       // var time = Date.now();
+
+        //criação da configuração do nodemailer para envio de email
+        var transporter = mailer.createTransport({
+            host: config.host,
+            port: config.port,
+            auth:{
+                user: config.user,
+                pass: config.pass
+            }
+        });
+
+        appos.forEach(async appo =>{
 
             //date recebe a data do banco de dados
             var date = appo.start.getTime();
@@ -123,15 +138,30 @@ class AppointmentService{
             var gap = date - Date.now();
 
             if(gap <= hour){
-                console.log(appo.title);
-                console.log("Mand a not!");
+                //console.log(appo.title);
+                //console.log("Mand a not!");
+                //iremos verificar se o paciente já foi notificado
+                if(!appo.notified){
+                   
+                    await AppoModel.findByIdAndUpdate(appo.id, {notified: true});
+
+                    //envio de email
+                    transporter.sendMail({
+                        from:"Claudisnei <testdevclaudisnei@gmail.com",
+                        to: appo.email,
+                        subject: "Alerta do horário da consulta",
+                        text: "A sua consulta está marcada e irá acontecer em 1h"
+                    }).then(()=>{
+                        console.log("Email enviado para " + appo.email);
+                    }).catch(err=>{
+                        console.log(err);
+                    })                  
+                }
             }
-
-
         });
 
 
-        console.log(time);
+        //console.log(time);
       //   console.log(appos);
     }
 }

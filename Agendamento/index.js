@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 //const appointmentService = require('./services/AppointmentService');
 const AppointmentService = require('./services/AppointmentService');
 //importando o arquivo de configuração com variáveis padrão.
-const config = require('../Agendamento/config');
+const config = require('./config/config');
 
 
 //criando a instancia do express em um app
